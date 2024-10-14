@@ -6,7 +6,9 @@ import { ZodError } from 'zod'
 
 import { env } from './env'
 
-export const app = fastify()
+export const app = fastify({
+  logger: true,
+})
 
 app.register(cors, {
   credentials: true,
