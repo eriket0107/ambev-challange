@@ -1,0 +1,16 @@
+{
+  "extends": "@rocketseat/eslint-config/node",
+  "plugins": [
+    "simple-import-sort"
+  ],
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off",
+    "simple-import-sort/imports": "error",
+    "camelcase": "off",
+    "no-useless-constructor": "off"
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": "latest"
+  }
+}
