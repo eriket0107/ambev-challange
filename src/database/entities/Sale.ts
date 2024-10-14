@@ -22,6 +22,9 @@ export class Sale {
   @Column({ type: 'varchar' })
   branch!: string
 
+  @Column({ type: 'int', nullable: true })
+  discount?: number
+
   @Column({ type: 'boolean', default: false })
   isCancelled!: boolean
 

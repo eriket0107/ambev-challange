@@ -10,4 +10,7 @@ export class Item {
 
   @Column({ type: 'int' })
   price!: number
+
+  @Column({ type: 'int' })
+  stock!: number
 }
