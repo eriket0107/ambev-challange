@@ -3,7 +3,7 @@
     "target": "ES2020",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "module": "ESNext",
+    "module": "commonjs",  // Use "commonjs" se estiver usando CommonJS
     "moduleResolution": "Node",
     "baseUrl": "./",
     "paths": {
