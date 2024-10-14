@@ -1,8 +1,6 @@
 import 'reflect-metadata'
 
-import cookies from '@fastify/cookie'
 import cors from '@fastify/cors'
-import fastifyJwt from '@fastify/jwt'
 import fastify from 'fastify'
 import { ZodError } from 'zod'
 
@@ -14,19 +12,6 @@ app.register(cors, {
   credentials: true,
   origin: true,
 })
-app.register(cookies)
-app.register(fastifyJwt, {
-  secret: env.JWT_SECRET,
-  cookie: {
-    cookieName: 'refreshToken',
-    signed: false,
-  },
-  sign: {
-    expiresIn: '10m',
-  },
-})
-
-
 
 app.setErrorHandler((error, _, reply) => {
   if (error instanceof ZodError) {
