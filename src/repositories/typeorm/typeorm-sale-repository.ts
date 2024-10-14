@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm'
+import { DeleteResult, Repository } from 'typeorm'
 
 import { dataSource } from '@/database/data-source'
 import { Sale } from '@/database/entities/Sale'
@@ -34,7 +34,7 @@ export class SaleRepositoryTypeOrm implements ISaleRepository {
     await this.repo.update(id, sale)
   }
 
-  async delete(id: string): Promise<void> {
-    await this.repo.delete(id)
+  async delete(id: string): Promise<DeleteResult> {
+    return await this.repo.delete(id)
   }
 }

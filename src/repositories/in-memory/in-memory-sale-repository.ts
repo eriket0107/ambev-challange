@@ -1,3 +1,5 @@
+import { DeleteResult } from 'typeorm'
+
 import { Sale } from '@/database/entities/Sale'
 
 import { ISaleRepository } from '../sale-repository'
@@ -23,8 +25,8 @@ export class SaleRepositoryInMemory implements ISaleRepository {
     Object.assign(saleToUpdate, sale)
   }
 
-  delete(id: string): void {
+  async delete(id: string): Promise<DeleteResult> {
     const deletedSale = this.dataBase.filter((sale) => sale.id !== id)
-    this.dataBase = [...deletedSale]
+    return (this.dataBase = [...deletedSale]) as unknown as DeleteResult
   }
 }
