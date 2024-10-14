@@ -3,9 +3,9 @@ import path from 'node:path'
 import sqlite3 from 'sqlite3'
 import { DataSource } from 'typeorm'
 
-const databasePath = path.resolve('database', 'sales.sqlite')
-const entitiesPath = path.resolve('database', 'entities', '*.ts')
-const migrationsPath = path.resolve('database', 'migrations', '*.ts')
+const databasePath = path.resolve('src', 'database', 'sales.sqlite')
+const entitiesPath = path.resolve('src', 'database', 'entities', '*.ts')
+const migrationsPath = path.resolve('src', 'database', 'migrations', '*.ts')
 
 export const dataSource = new DataSource({
   type: 'sqlite',
