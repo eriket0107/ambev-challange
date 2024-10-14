@@ -1,29 +1,20 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm'
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 
-export type SaleItem = {
-  productSlug: string
-  quantity: number
-  unitPrice: number
-  discount: number
-  totalValue: number
-}
+import { SaleItem } from './SaleItem'
 
 @Entity()
 export class Sale {
   @PrimaryGeneratedColumn('uuid')
   id!: string
 
-  @Column({})
+  @Column('number')
   saleNumber!: number
 
-  @Column({ type: 'datetime' })
-  saleDate!: Date
+  @Column({ type: 'date' })
+  executedAt!: Date
+
+  @Column({ type: 'decimal' })
+  totalValue!: number
 
   @Column({ type: 'varchar' })
   customerName!: string
@@ -31,18 +22,9 @@ export class Sale {
   @Column({ type: 'varchar' })
   branch!: string
 
-  @Column('decimal')
-  totalValue!: number
-
-  @Column('simple-json')
-  items!: SaleItem[]
-
   @Column({ type: 'boolean', default: false })
   isCancelled!: boolean
 
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt?: Date
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt?: Date
+  @OneToMany(() => SaleItem, (saleItem) => saleItem.sale, { cascade: true })
+  saleItems!: SaleItem[]
 }
