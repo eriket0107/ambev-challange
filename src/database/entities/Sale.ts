@@ -1,28 +1,34 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm'
 
 export type SaleItem = {
-  productName: string
+  productSlug: string
   quantity: number
   unitPrice: number
   discount: number
   totalValue: number
 }
 
-@Entity('sales')
+@Entity()
 export class Sale {
   @PrimaryGeneratedColumn('uuid')
   id!: string
 
-  @Column()
-  saleNumber!: string
+  @Column({})
+  saleNumber!: number
 
   @Column({ type: 'datetime' })
   saleDate!: Date
 
-  @Column()
+  @Column({ type: 'varchar' })
   customerName!: string
 
-  @Column()
+  @Column({ type: 'varchar' })
   branch!: string
 
   @Column('decimal')
@@ -31,6 +37,12 @@ export class Sale {
   @Column('simple-json')
   items!: SaleItem[]
 
-  @Column({ default: false })
+  @Column({ type: 'boolean', default: false })
   isCancelled!: boolean
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt?: Date
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt?: Date
 }
