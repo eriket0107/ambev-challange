@@ -17,12 +17,12 @@ export class SaleItem {
   @Column({ type: 'int' })
   quantity!: number
 
-  @Column({ type: 'number' })
+  @Column({ type: 'int' })
   unitPrice!: number
 
-  @Column({ type: 'number' })
+  @Column({ type: 'int' })
   totalValue!: number
 
-  @Column({ type: 'number', nullable: true })
+  @Column({ type: 'int', nullable: true })
   discount?: number
 }

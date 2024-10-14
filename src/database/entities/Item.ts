@@ -5,9 +5,9 @@ export class Item {
   @PrimaryGeneratedColumn('uuid')
   id!: string
 
-  @Column({ type: 'string' })
+  @Column({ type: 'varchar' })
   name!: string
 
-  @Column({ type: 'decimal' })
+  @Column({ type: 'int' })
   price!: number
 }

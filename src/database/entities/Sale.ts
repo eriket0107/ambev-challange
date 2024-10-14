@@ -7,13 +7,13 @@ export class Sale {
   @PrimaryGeneratedColumn('uuid')
   id!: string
 
-  @Column('number')
+  @Column('int')
   saleNumber!: number
 
   @Column({ type: 'date' })
   executedAt!: Date
 
-  @Column({ type: 'decimal' })
+  @Column({ type: 'int' })
   totalValue!: number
 
   @Column({ type: 'varchar' })
