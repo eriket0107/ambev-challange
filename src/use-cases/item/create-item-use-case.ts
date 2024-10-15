@@ -1,7 +1,7 @@
 import { Item } from '@/database/entities/Item'
 import { IItemRepository } from '@/repositories/item-repository'
 
-import { CheckIfItemAlreadyExistsError } from './check-if-item-exists'
+import { CheckIfItemAlreadyExistsError } from './check-if-item-already-exists'
 
 type CreateItemRequest = Partial<Item>
 
