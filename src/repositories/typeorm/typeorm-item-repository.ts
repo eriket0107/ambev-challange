@@ -16,6 +16,10 @@ export class ItemRepositoryTypeOrm implements IItemRepository {
     return await this.repo.findOneBy({ id })
   }
 
+  async findBySlug(slug: string): Promise<Item | null> {
+    return await this.repo.findOneBy({ slug })
+  }
+
   async findAll(): Promise<Item[]> {
     return await this.repo.find()
   }

@@ -8,7 +8,11 @@ export class ItemRepositoryInMemory implements IItemRepository {
   private dataBase: Item[] = []
 
   async findById(id: string): Promise<Item | null> {
-    return this.dataBase.find((sale) => sale.id === id) || null
+    return this.dataBase.find((item) => item.id === id) || null
+  }
+
+  async findBySlug(slug: string): Promise<Item | null> {
+    return this.dataBase.find((item) => item.slug === slug) || null
   }
 
   async findAll(): Promise<Item[]> {
