@@ -8,6 +8,9 @@ export class Item {
   @Column({ type: 'varchar' })
   name!: string
 
+  @Column({ type: 'varchar' })
+  slug!: string
+
   @Column({ type: 'int' })
   price!: number
 
