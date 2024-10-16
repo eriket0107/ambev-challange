@@ -5,16 +5,16 @@ import { SaleItem } from './SaleItem'
 @Entity()
 export class Sale {
   @PrimaryGeneratedColumn('uuid')
-  id!: string
+  id?: string
 
-  @Column('number')
-  saleNumber!: number
+  @Column('int')
+  saleNumber?: number
 
   @Column({ type: 'date' })
-  executedAt!: Date
+  executedAt?: string
 
-  @Column({ type: 'decimal' })
-  totalValue!: number
+  @Column({ type: 'int' })
+  totalValue?: number
 
   @Column({ type: 'varchar' })
   customerName!: string
@@ -22,8 +22,11 @@ export class Sale {
   @Column({ type: 'varchar' })
   branch!: string
 
+  @Column({ type: 'int', nullable: true })
+  discount?: number
+
   @Column({ type: 'boolean', default: false })
-  isCancelled!: boolean
+  isCancelled?: boolean
 
   @OneToMany(() => SaleItem, (saleItem) => saleItem.sale, { cascade: true })
   saleItems!: SaleItem[]
