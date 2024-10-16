@@ -7,8 +7,8 @@ export class Sale {
   @PrimaryGeneratedColumn('uuid')
   id?: string
 
-  @Column('int')
-  saleNumber?: number
+  @Column('varchar')
+  saleNumber?: string
 
   @Column({ type: 'date' })
   executedAt?: string

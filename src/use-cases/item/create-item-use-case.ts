@@ -15,7 +15,6 @@ export class CreateItemUseCase {
     const checkIfSlugExists = await this.itemRepository.findBySlug(
       item.slug as string,
     )
-
     if (!item.stock || item.stock === 0)
       throw new InsufficientStockError(item.slug as string)
     if (checkIfSlugExists) throw new CheckIfItemAlreadyExistsError()

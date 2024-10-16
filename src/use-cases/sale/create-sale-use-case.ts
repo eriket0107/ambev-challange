@@ -56,10 +56,10 @@ export class CreateSaleUseCase {
 
       saleData.saleItems.push(saleItem)
       totalSaleValue += totalValue
-      saleData.saleNumber = salesCount + 1
+      saleData.saleNumber = `#${String(salesCount + 1).padStart(6, '0')}`
       saleData.discount = discount
       item.stock -= quantity
-      await this.itemRepository.create(item)
+      await this.itemRepository.update({ id: item.id, item })
     }
 
     saleData.executedAt = dayjs().format('YYYY-MM-DDTHH:mm:ssZ[Z]')
