@@ -1,7 +1,8 @@
 import { Item } from '@/database/entities/Item'
 import { IItemRepository } from '@/repositories/item-repository'
 
-import { CheckIfItemAlreadyExistsError } from './check-if-item-already-exists'
+import { CheckIfItemAlreadyExistsError } from './errors/check-if-item-already-exists'
+import { InsufficientStockError } from './errors/insuficient-stock-error'
 
 type CreateItemRequest = Partial<Item>
 
@@ -15,6 +16,8 @@ export class CreateItemUseCase {
       item.slug as string,
     )
 
+    if (!item.stock || item.stock === 0)
+      throw new InsufficientStockError(item.slug as string)
     if (checkIfSlugExists) throw new CheckIfItemAlreadyExistsError()
 
     const createdItem = await this.itemRepository.create(item as Item)
