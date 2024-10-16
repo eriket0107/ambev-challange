@@ -37,4 +37,8 @@ export class SaleRepositoryTypeOrm implements ISaleRepository {
   async delete(id: string): Promise<DeleteResult> {
     return await this.repo.delete(id)
   }
+
+  async count(): Promise<number> {
+    return await this.repo.count()
+  }
 }

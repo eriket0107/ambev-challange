@@ -36,4 +36,8 @@ export class SaleRepositoryInMemory implements ISaleRepository {
     const deletedSale = this.dataBase.filter((sale) => sale.id !== id)
     return (this.dataBase = [...deletedSale]) as unknown as DeleteResult
   }
+
+  async count(): Promise<number> {
+    return this.dataBase.length
+  }
 }

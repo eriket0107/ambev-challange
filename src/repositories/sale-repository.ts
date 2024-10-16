@@ -8,4 +8,5 @@ export interface ISaleRepository {
   findById(id: string): Promise<Sale | null>
   update({ id, sale }: { id: string; sale: Partial<Sale> }): void
   delete(id: string): Promise<DeleteResult>
+  count(): Promise<number>
 }
