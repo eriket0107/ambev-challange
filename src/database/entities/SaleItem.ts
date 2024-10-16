@@ -6,14 +6,23 @@ import { Sale } from './Sale'
 @Entity()
 export class SaleItem {
   @PrimaryGeneratedColumn('uuid')
-  id!: string
+  id?: string
 
   @ManyToOne(() => Sale, (sale) => sale.saleItems, { onDelete: 'CASCADE' })
-  sale!: Sale
+  sale?: Sale
 
   @ManyToOne(() => Item, { eager: true, onDelete: 'CASCADE' })
   item!: Item
 
   @Column({ type: 'int' })
   quantity!: number
+
+  @Column({ type: 'int' })
+  discount!: number
+
+  @Column({ type: 'int' })
+  totalValue!: number
+
+  @Column({ type: 'int' })
+  unitPrice!: number
 }
