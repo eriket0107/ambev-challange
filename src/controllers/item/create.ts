@@ -28,7 +28,7 @@ export const createItem = async (
       stock,
       slug,
     })
-    return reply.send(item).status(200)
+    return reply.send(item).status(200).log.info(item, 'Item')
   } catch (error) {
     errorHandler({
       error,
