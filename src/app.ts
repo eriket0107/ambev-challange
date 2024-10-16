@@ -5,11 +5,10 @@ import fastify from 'fastify'
 import { ZodError } from 'zod'
 
 import { env } from './env'
+import { logger } from './logs/log.config'
 import { routes } from './routes'
 
-export const app = fastify({
-  logger: true,
-})
+export const app = fastify({ logger })
 
 app.register(cors, {
   credentials: true,
