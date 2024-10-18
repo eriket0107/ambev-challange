@@ -4,6 +4,7 @@ import { IItemRepository } from '@/repositories/item-repository'
 import { ISaleItemRepository } from '@/repositories/sale-item-repository'
 import { ISaleRepository } from '@/repositories/sale-repository'
 
+import { SaleHasAlreadyBeenCanceled } from '../errors/already-canceled-sale'
 import { SaleNotFoundError } from '../errors/sale-not-found-error'
 
 export class CancelSaleUseCase {
@@ -16,8 +17,11 @@ export class CancelSaleUseCase {
   async execute(saleId: string): Promise<UpdateResult> {
     const sale = await this.saleRepository.findById(saleId)
     if (!sale) throw new SaleNotFoundError()
+    if (sale.isCancelled) throw new SaleHasAlreadyBeenCanceled()
 
-    for (const saleItem of sale.saleItems) {
+    const saleItems = await this.saleItemRepository.findBySaleId(saleId)
+
+    for (const saleItem of saleItems) {
       const item = await this.itemRepository.findBySlug(saleItem.item.slug)
 
       if (item) {
@@ -26,7 +30,7 @@ export class CancelSaleUseCase {
       }
     }
 
-    for (const saleItem of sale.saleItems) {
+    for (const saleItem of saleItems) {
       await this.saleItemRepository.delete(saleItem.id as string)
     }
 
