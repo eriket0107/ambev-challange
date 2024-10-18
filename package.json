@@ -11,8 +11,11 @@
     "typeorm": "typeorm-ts-node-commonjs -d src/database/data-source",
     "migration:generate": "npm run typeorm migration:generate",
     "migration:run": "npm run typeorm migration:run",
-    "test": "vitest run --dir src/use-cases",
-    "test:watch": "vitest --dir src/use-cases",
+    "test:use-cases": "vitest run --dir src/use-cases",
+    "test:watch-use-cases": "vitest --dir src/use-cases",
+    "test": "vitest run --dir src",
+    "test:watch": "vitest --dir src",
+    "test:coverage": "vitest --coverage",
     "prepare": "husky"
   },
   "author": "eriket0107",

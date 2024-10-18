@@ -4,7 +4,7 @@ import { z } from 'zod'
 import { ItemRepositoryTypeOrm } from '@/repositories/typeorm/typeorm-item-repository'
 import { SaleItemRepositoryTypeOrm } from '@/repositories/typeorm/typeorm-sale-item-repository'
 import { SaleRepositoryTypeOrm } from '@/repositories/typeorm/typeorm-sale-repository'
-import { CreateSaleUseCase } from '@/use-cases/sale/create-sale/create-sale-use-case'
+import { CreateSaleUseCase } from '@/use-cases/sale/create-sale-use-case'
 import { errorHandler } from '@/utils/error-handler'
 
 const createSaleSchema = z.object({
