@@ -5,9 +5,9 @@ import { IItemRepository } from '@/repositories/item-repository'
 import { ISaleItemRepository } from '@/repositories/sale-item-repository'
 import { ISaleRepository } from '@/repositories/sale-repository'
 
-import { InsufficientStockError } from '../item/errors/insuficient-stock-error'
-import { ExceedQuantityLimitError } from './errors/exceed-quantity-limit-error'
-import { ItemNotFoundError } from './errors/item-not-found-error'
+import { InsufficientStockError } from '../../item/errors/insuficient-stock-error'
+import { ExceedQuantityLimitError } from '../errors/exceed-quantity-limit-error'
+import { ItemNotFoundError } from '../errors/item-not-found-error'
 
 type ItemsType = { itemSlug: string; quantity: number }
 
