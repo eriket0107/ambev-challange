@@ -13,6 +13,10 @@ export class SaleItemRepositoryInMemory implements ISaleItemRepository {
     return saleItem
   }
 
+  async findBySaleId(saleId: string): Promise<SaleItem[]> {
+    return this.dataBase.filter((saleItem) => saleItem.sale?.id === saleId)
+  }
+
   async findById(id: string): Promise<SaleItem | null> {
     return this.dataBase.find((saleItem) => saleItem.id === id) || null
   }
