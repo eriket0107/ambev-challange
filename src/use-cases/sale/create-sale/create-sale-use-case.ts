@@ -4,6 +4,7 @@ import { Sale } from '@/database/entities/Sale'
 import { IItemRepository } from '@/repositories/item-repository'
 import { ISaleItemRepository } from '@/repositories/sale-item-repository'
 import { ISaleRepository } from '@/repositories/sale-repository'
+import { calculateDiscount } from '@/utils/calculateDiscount'
 
 import { InsufficientStockError } from '../../item/errors/insuficient-stock-error'
 import { ExceedQuantityLimitError } from '../errors/exceed-quantity-limit-error'
@@ -23,12 +24,6 @@ export class CreateSaleUseCase {
     private saleItemRepository: ISaleItemRepository,
   ) {}
 
-  private calculateDiscount(quantity: number): number {
-    if (quantity >= 10 && quantity <= 20) return 0.2
-    if (quantity >= 4) return 0.1
-    return 0
-  }
-
   async execute({
     saleData,
     items,
@@ -42,7 +37,7 @@ export class CreateSaleUseCase {
       if (item.stock < quantity) throw new InsufficientStockError(item.slug)
       if (quantity > 20) throw new ExceedQuantityLimitError()
 
-      const discountRate = this.calculateDiscount(quantity)
+      const discountRate = calculateDiscount(quantity)
       const discount = discountRate * item.price * quantity
       const totalValue = item.price * quantity - discount
 
