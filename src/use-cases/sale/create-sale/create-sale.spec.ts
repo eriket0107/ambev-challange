@@ -5,9 +5,9 @@ import { SaleItemRepositoryInMemory } from '@/repositories/in-memory/in-memory-s
 import { SaleRepositoryInMemory } from '@/repositories/in-memory/in-memory-sale-repository'
 import { InsufficientStockError } from '@/use-cases/item/errors/insuficient-stock-error'
 
+import { ExceedQuantityLimitError } from '../errors/exceed-quantity-limit-error'
+import { ItemNotFoundError } from '../errors/item-not-found-error'
 import { CreateSaleUseCase } from './create-sale-use-case'
-import { ExceedQuantityLimitError } from './errors/exceed-quantity-limit-error'
-import { ItemNotFoundError } from './errors/item-not-found-error'
 
 let saleRepository: SaleRepositoryInMemory
 let itemRepository: ItemRepositoryInMemory

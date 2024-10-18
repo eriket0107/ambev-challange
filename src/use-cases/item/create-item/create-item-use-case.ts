@@ -1,8 +1,8 @@
 import { Item } from '@/database/entities/Item'
 import { IItemRepository } from '@/repositories/item-repository'
 
-import { CheckIfItemAlreadyExistsError } from './errors/check-if-item-already-exists'
-import { InsufficientStockError } from './errors/insuficient-stock-error'
+import { CheckIfItemAlreadyExistsError } from '../errors/check-if-item-already-exists'
+import { InsufficientStockError } from '../errors/insuficient-stock-error'
 
 type CreateItemRequest = Partial<Item>
 
