@@ -2,7 +2,7 @@ import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
 import { ItemRepositoryTypeOrm } from '@/repositories/typeorm/typeorm-item-repository'
-import { CreateItemUseCase } from '@/use-cases/item/create-item/create-item-use-case'
+import { CreateItemUseCase } from '@/use-cases/item/create-item-use-case'
 import { errorHandler } from '@/utils/error-handler'
 
 const createdItemSchema = z.object({
