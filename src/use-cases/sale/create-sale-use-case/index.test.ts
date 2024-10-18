@@ -7,7 +7,7 @@ import { InsufficientStockError } from '@/use-cases/item/errors/insuficient-stoc
 
 import { ExceedQuantityLimitError } from '../errors/exceed-quantity-limit-error'
 import { ItemNotFoundError } from '../errors/item-not-found-error'
-import { CreateSaleUseCase } from './create-sale-use-case'
+import { CreateSaleUseCase } from '.'
 
 let saleRepository: SaleRepositoryInMemory
 let itemRepository: ItemRepositoryInMemory
