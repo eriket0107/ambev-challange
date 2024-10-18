@@ -1,4 +1,4 @@
-import { DeleteResult, UpdateResult } from 'typeorm'
+import { DeleteResult } from 'typeorm'
 
 import { Sale } from '@/database/entities/Sale'
 
@@ -26,10 +26,10 @@ export class SaleRepositoryInMemory implements ISaleRepository {
   }: {
     id: string
     sale: Partial<Sale>
-  }): Promise<UpdateResult> {
+  }): Promise<Sale> {
     const saleToUpdate = this.dataBase.find((sale) => sale.id === id) || {}
     Object.assign(saleToUpdate, sale)
-    return saleToUpdate as UpdateResult
+    return saleToUpdate as Sale
   }
 
   async delete(id: string): Promise<DeleteResult> {
