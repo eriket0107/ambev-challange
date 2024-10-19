@@ -28,6 +28,6 @@ export class Sale {
   @Column({ type: 'boolean', default: false })
   isCancelled?: boolean
 
-  @OneToMany(() => SaleItem, (saleItem) => saleItem.sale, { cascade: true })
+  @OneToMany(() => SaleItem, (saleItem) => saleItem.sale)
   saleItems!: SaleItem[]
 }

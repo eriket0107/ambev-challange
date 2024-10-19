@@ -17,11 +17,14 @@ export class SaleRepositoryTypeOrm implements ISaleRepository {
   }
 
   async findAll(): Promise<Sale[]> {
-    return await this.repo.find()
+    return await this.repo.find({ relations: ['saleItems'] })
   }
 
   async findById(id: string): Promise<Sale | null> {
-    return await this.repo.findOneBy({ id })
+    return await this.repo.findOne({
+      where: { id },
+      relations: ['saleItems'],
+    })
   }
 
   async update({

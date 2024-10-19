@@ -1,14 +1,16 @@
 import { Sale } from '@/database/entities/Sale'
+import { SaleItem } from '@/database/entities/SaleItem'
 import { IItemRepository } from '@/repositories/item-repository'
 import { ISaleItemRepository } from '@/repositories/sale-item-repository'
 import { ISaleRepository } from '@/repositories/sale-repository'
+import { calculateDiscount } from '@/utils/calculateDiscount'
 
 import { SaleHasAlreadyBeenCanceled } from '../errors/already-canceled-sale'
 import { SaleNotFoundError } from '../errors/sale-not-found-error'
 
 type UpdateSaleRequest = {
   saleId: string
-  sale: Partial<Sale>
+  saleItems: { itemSlug: string; quantity: number }[]
 }
 
 export class UpdateSaleUseCase {
@@ -18,7 +20,7 @@ export class UpdateSaleUseCase {
     private saleItemRepository: ISaleItemRepository,
   ) {}
 
-  async execute({ saleId, sale }: UpdateSaleRequest): Promise<Sale> {
+  async execute({ saleId, saleItems }: UpdateSaleRequest): Promise<Sale> {
     const existingSale = await this.saleRepository.findById(saleId)
     if (!existingSale) throw new SaleNotFoundError()
     if (existingSale.isCancelled) throw new SaleHasAlreadyBeenCanceled()
@@ -37,19 +39,47 @@ export class UpdateSaleUseCase {
     }
 
     let newTotalValue = 0
-    for (const saleItem of sale.saleItems || []) {
-      const item = await this.itemRepository.findBySlug(saleItem.item.slug)
-      if (item) {
-        item.stock -= saleItem.quantity
-        await this.itemRepository.update({ id: item.id, item })
+    const newSaleItems: SaleItem[] = []
+
+    for (const { itemSlug, quantity } of saleItems) {
+      const item = await this.itemRepository.findBySlug(itemSlug)
+      if (!item) throw new Error(`Item with slug ${itemSlug} not found`)
+
+      if (item.stock < quantity) {
+        throw new Error(`Insufficient stock for item ${itemSlug}`)
       }
+
+      item.stock -= quantity
+      await this.itemRepository.update({ id: item.id, item })
+
+      const discountRate = calculateDiscount(quantity)
+      const discount = discountRate * item.price * quantity
+      const totalValue = item.price * quantity - discount
+
+      const saleItem: SaleItem = {
+        item,
+        quantity,
+        unitPrice: item.price,
+        discount,
+        totalValue,
+      }
+
       newTotalValue += saleItem.totalValue
+      await this.saleItemRepository.updateBySaleId({
+        saleId,
+        saleItem,
+      })
+      newSaleItems.push(saleItem)
     }
 
-    const updatedSale = await this.saleRepository.update({
+    existingSale.totalValue = newTotalValue
+    existingSale.saleItems = newSaleItems
+
+    const updatedSale = await this.saleRepository.create({
       id: saleId,
-      sale: { ...existingSale, ...sale, totalValue: newTotalValue },
+      ...existingSale,
     })
+
     return updatedSale
   }
 }

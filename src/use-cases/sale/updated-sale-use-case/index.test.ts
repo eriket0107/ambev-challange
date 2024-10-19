@@ -56,20 +56,16 @@ describe('UpdateSaleUseCase', () => {
     await itemRepository.create(item)
     await saleRepository.create(sale)
 
+    const saleItemsToUpdate = [
+      {
+        itemSlug: 'item-1',
+        quantity: 3,
+      },
+    ]
+
     const updatedSale = await sut.execute({
       saleId: sale.id as string,
-      sale: {
-        saleItems: [
-          {
-            id: '2',
-            item,
-            quantity: 3,
-            unitPrice: 100,
-            discount: 0,
-            totalValue: 300,
-          },
-        ],
-      },
+      saleItems: saleItemsToUpdate,
     })
 
     const updatedItem = await itemRepository.findBySlug(item.slug)
@@ -80,7 +76,10 @@ describe('UpdateSaleUseCase', () => {
 
   it('should throw SaleNotFoundError if sale does not exist', async () => {
     await expect(
-      sut.execute({ saleId: 'invalid-sale', sale: {} }),
+      sut.execute({
+        saleId: 'invalid-sale',
+        saleItems: [],
+      }),
     ).rejects.toBeInstanceOf(SaleNotFoundError)
   })
 
@@ -97,7 +96,55 @@ describe('UpdateSaleUseCase', () => {
     await saleRepository.create(sale)
 
     await expect(
-      sut.execute({ saleId: sale.id as string, sale: {} }),
+      sut.execute({
+        saleId: sale.id as string,
+        saleItems: [],
+      }),
     ).rejects.toBeInstanceOf(SaleHasAlreadyBeenCanceled)
+  })
+
+  it('should throw an error if item stock is insufficient', async () => {
+    const item = {
+      id: '1',
+      slug: 'item-1',
+      name: 'Test Item',
+      price: 100,
+      stock: 2,
+    }
+
+    const sale = {
+      id: 'sale-1',
+      branch: 'Teste',
+      customerName: 'Teste',
+      saleItems: [
+        {
+          id: '1',
+          item,
+          quantity: 1,
+          unitPrice: 100,
+          discount: 0,
+          totalValue: 100,
+        },
+      ],
+      totalValue: 100,
+      isCancelled: false,
+    }
+
+    await itemRepository.create(item)
+    await saleRepository.create(sale)
+
+    const saleItemsToUpdate = [
+      {
+        itemSlug: 'item-1',
+        quantity: 3,
+      },
+    ]
+
+    await expect(
+      sut.execute({
+        saleId: sale.id,
+        saleItems: saleItemsToUpdate,
+      }),
+    ).rejects.toThrowError('Insufficient stock for item item-1')
   })
 })

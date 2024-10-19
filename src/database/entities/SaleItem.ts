@@ -8,10 +8,17 @@ export class SaleItem {
   @PrimaryGeneratedColumn('uuid')
   id?: string
 
-  @ManyToOne(() => Sale, (sale) => sale.saleItems, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Sale, (sale) => sale.saleItems, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   sale?: Sale
 
-  @ManyToOne(() => Item, { eager: true, onDelete: 'CASCADE' })
+  @ManyToOne(() => Item, {
+    eager: true,
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   item!: Item
 
   @Column({ type: 'int' })

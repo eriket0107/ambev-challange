@@ -13,6 +13,13 @@ export interface ISaleItemRepository {
     id: string
     saleItem: Partial<SaleItem>
   }): Promise<UpdateResult>
+  updateBySaleId({
+    saleId,
+    saleItem,
+  }: {
+    saleId: string
+    saleItem: Partial<SaleItem>
+  }): Promise<UpdateResult>
   delete(id: string): Promise<DeleteResult>
   findAll(): Promise<SaleItem[]>
 }
