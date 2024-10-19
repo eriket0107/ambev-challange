@@ -1,4 +1,4 @@
-import { DeleteResult, Repository, UpdateResult } from 'typeorm'
+import { DeleteResult, Repository } from 'typeorm'
 
 import { dataSource } from '@/database/data-source'
 import { Item } from '@/database/entities/Item'
@@ -34,8 +34,14 @@ export class ItemRepositoryTypeOrm implements IItemRepository {
   }: {
     id: string
     item: Partial<Item>
-  }): Promise<UpdateResult> {
-    return await this.repo.update(id, item)
+  }): Promise<Item> {
+    await this.repo.update(id, item)
+
+    const updatedItem = await this.findById(id)
+
+    if (!updatedItem) throw new Error('Item not foud')
+
+    return updatedItem
   }
 
   async delete(id: string): Promise<DeleteResult> {
