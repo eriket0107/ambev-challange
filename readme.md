@@ -173,7 +173,6 @@ Creates a new sale with the specified customer, branch, and items.
 `POST /sales/cancel`
 
 **Request Body:**
-
 ```json
 {
   "saleId": "sale-id"
@@ -183,7 +182,6 @@ Creates a new sale with the specified customer, branch, and items.
 - **saleId**: `string` (ID of the sale to cancel)
 
 **Response:**
-
 - **200 OK:**
   - Sale canceled successfully
 - **400 Bad Request:**
@@ -200,7 +198,6 @@ Cancels an existing sale using the provided sale ID.
 `PUT /sales`
 
 **Request Body:**
-
 - **saleId**: `string` (ID of the sale to update)
 - **saleItems**:
   - An array of updated item objects, each containing:
@@ -208,7 +205,6 @@ Cancels an existing sale using the provided sale ID.
     - **quantity**: `number` (New quantity of the item)
 
 **Response:**
-
 ```json
 {
   "saleId": "sale-id",
@@ -247,4 +243,3 @@ All endpoints return errors in the following format:
   - **404 Not Found:**
     - Resource not found  
 
-You can copy this formatted section as needed!
