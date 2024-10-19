@@ -1,4 +1,6 @@
-### Runnint the project
+# Documentation
+
+## Running the project
 
 - **Dev**
   - Runs the application using the built files.
@@ -39,7 +41,7 @@
   npm run migration:run
   ```
 
-# API Documentation
+## API Documentation
 
 This document provides an overview of the available endpoints for managing items and sales. All endpoints follow RESTful conventions and return standard HTTP status codes.
 
