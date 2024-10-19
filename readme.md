@@ -1,17 +1,11 @@
-How to run the project
-
-### Development and Build
+### Runnint the project
 
 - **Dev**
   - Runs the application using the built files.
 
   ```bash
-    npm i
-  ```
-
- ```
+  npm i
   npm run dev
-
   ```
   
 ### Migrations
@@ -173,6 +167,7 @@ Creates a new sale with the specified customer, branch, and items.
 `POST /sales/cancel`
 
 **Request Body:**
+
 ```json
 {
   "saleId": "sale-id"
@@ -182,6 +177,7 @@ Creates a new sale with the specified customer, branch, and items.
 - **saleId**: `string` (ID of the sale to cancel)
 
 **Response:**
+
 - **200 OK:**
   - Sale canceled successfully
 - **400 Bad Request:**
@@ -198,6 +194,7 @@ Cancels an existing sale using the provided sale ID.
 `PUT /sales`
 
 **Request Body:**
+
 - **saleId**: `string` (ID of the sale to update)
 - **saleItems**:
   - An array of updated item objects, each containing:
@@ -205,6 +202,7 @@ Cancels an existing sale using the provided sale ID.
     - **quantity**: `number` (New quantity of the item)
 
 **Response:**
+
 ```json
 {
   "saleId": "sale-id",
@@ -223,14 +221,12 @@ Cancels an existing sale using the provided sale ID.
 **Description:**  
 Updates the sale with the given sale ID and new items.
 
-Here’s the "Error Handling" section formatted with bullet points:
-
-```markdown
 ## Error Handling
 
 All endpoints return errors in the following format:
 
 - **Response Format:**
+
   ```json
   {
     "error": "string"
@@ -242,4 +238,3 @@ All endpoints return errors in the following format:
     - Invalid request or validation error  
   - **404 Not Found:**
     - Resource not found  
-
