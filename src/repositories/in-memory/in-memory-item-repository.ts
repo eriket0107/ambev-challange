@@ -1,4 +1,4 @@
-import { DeleteResult, UpdateResult } from 'typeorm'
+import { DeleteResult } from 'typeorm'
 
 import { Item } from '@/database/entities/Item'
 
@@ -30,11 +30,12 @@ export class ItemRepositoryInMemory implements IItemRepository {
   }: {
     id: string
     item: Partial<Item>
-  }): Promise<UpdateResult> {
+  }): Promise<Item> {
     const itemToUpdate = this.dataBase.find((sale) => sale.id === id) || {}
     Object.assign(itemToUpdate, item)
 
-    return itemToUpdate as UpdateResult
+    const updatedItem = this.dataBase.find((sale) => sale.id === id)
+    return updatedItem as Item
   }
 
   async delete(id: string): Promise<DeleteResult> {

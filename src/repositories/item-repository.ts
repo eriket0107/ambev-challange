@@ -1,4 +1,4 @@
-import { DeleteResult, UpdateResult } from 'typeorm'
+import { DeleteResult } from 'typeorm'
 
 import { Item } from '@/database/entities/Item'
 
@@ -8,11 +8,5 @@ export interface IItemRepository {
   findBySlug(slug: string): Promise<Item | null>
   create(item: Item): Promise<Item>
   delete(id: string): Promise<DeleteResult>
-  update({
-    id,
-    item,
-  }: {
-    id: string
-    item: Partial<Item>
-  }): Promise<UpdateResult>
+  update({ id, item }: { id: string; item: Partial<Item> }): Promise<Item>
 }
