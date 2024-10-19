@@ -7,7 +7,22 @@
   npm i
   npm run dev
   ```
-  
+
+### Tests
+
+- **Tests**
+  - Runs the all application tests
+
+  ```bash
+  npm run test:watch
+  ```
+
+  - Runs the only use cases tests
+
+  ```bash
+  npm run test:watch-use-cases
+  ```
+
 ### Migrations
 
 - **migration:generate:**
