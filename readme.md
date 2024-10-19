@@ -56,8 +56,6 @@ This document provides an overview of the available endpoints for managing items
   - [Cancel Sale](#2-cancel-sale)  
   - [Update Sale](#3-update-sale)  
 - [Error Handling](#error-handling)  
-- [Logging](#logging)  
-- [Usage Instructions](#usage-instructions)  
 
 ---
 
