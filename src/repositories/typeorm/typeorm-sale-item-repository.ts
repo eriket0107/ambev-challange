@@ -34,6 +34,23 @@ export class SaleItemRepositoryTypeOrm implements ISaleItemRepository {
     return await this.repo.update(id, saleItem)
   }
 
+  async updateBySaleId({
+    saleId,
+    saleItem,
+  }: {
+    saleId: string
+    saleItem: Partial<SaleItem>
+  }): Promise<UpdateResult> {
+    return await this.repo.update(
+      {
+        sale: {
+          id: saleId,
+        },
+      },
+      saleItem,
+    )
+  }
+
   async delete(id: string): Promise<DeleteResult> {
     return await this.repo.delete(id)
   }

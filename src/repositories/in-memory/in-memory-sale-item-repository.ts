@@ -34,6 +34,20 @@ export class SaleItemRepositoryInMemory implements ISaleItemRepository {
     return saleItemToUpdate as UpdateResult
   }
 
+  async updateBySaleId({
+    saleId,
+    saleItem,
+  }: {
+    saleId: string
+    saleItem: Partial<SaleItem>
+  }): Promise<UpdateResult> {
+    const saleItemToUpdate =
+      this.dataBase.find((saleItem) => saleItem?.sale?.id === saleId) || {}
+    Object.assign(saleItemToUpdate, saleItem)
+
+    return saleItemToUpdate as UpdateResult
+  }
+
   async delete(id: string): Promise<DeleteResult> {
     const deletedSaleItems = this.dataBase.filter((sale) => sale.id !== id)
     return (this.dataBase = [...deletedSaleItems]) as unknown as DeleteResult

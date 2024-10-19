@@ -1,4 +1,11 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm'
 
 import { SaleItem } from './SaleItem'
 
@@ -28,6 +35,12 @@ export class Sale {
   @Column({ type: 'boolean', default: false })
   isCancelled?: boolean
 
-  @OneToMany(() => SaleItem, (saleItem) => saleItem.sale, { cascade: true })
+  @OneToMany(() => SaleItem, (saleItem) => saleItem.sale)
   saleItems!: SaleItem[]
+
+  @CreateDateColumn({ type: 'date' })
+  createdAt?: string
+
+  @UpdateDateColumn({ type: 'date' })
+  updatedAt?: string
 }

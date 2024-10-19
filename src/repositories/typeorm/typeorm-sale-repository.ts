@@ -1,4 +1,4 @@
-import { DeleteResult, Repository, UpdateResult } from 'typeorm'
+import { DeleteResult, Repository } from 'typeorm'
 
 import { dataSource } from '@/database/data-source'
 import { Sale } from '@/database/entities/Sale'
@@ -17,11 +17,14 @@ export class SaleRepositoryTypeOrm implements ISaleRepository {
   }
 
   async findAll(): Promise<Sale[]> {
-    return await this.repo.find()
+    return await this.repo.find({ relations: ['saleItems'] })
   }
 
   async findById(id: string): Promise<Sale | null> {
-    return await this.repo.findOneBy({ id })
+    return await this.repo.findOne({
+      where: { id },
+      relations: ['saleItems'],
+    })
   }
 
   async update({
@@ -30,8 +33,12 @@ export class SaleRepositoryTypeOrm implements ISaleRepository {
   }: {
     id: string
     sale: Partial<Sale>
-  }): Promise<UpdateResult> {
-    return await this.repo.update(id, sale)
+  }): Promise<Sale> {
+    await this.repo.update(id, sale)
+
+    const saleUpdated = await this.findById(id)
+
+    return saleUpdated as Sale
   }
 
   async delete(id: string): Promise<DeleteResult> {

@@ -1,5 +1,4 @@
-import { UpdateResult } from 'typeorm'
-
+import { Sale } from '@/database/entities/Sale'
 import { IItemRepository } from '@/repositories/item-repository'
 import { ISaleItemRepository } from '@/repositories/sale-item-repository'
 import { ISaleRepository } from '@/repositories/sale-repository'
@@ -14,7 +13,7 @@ export class CancelSaleUseCase {
     private saleItemRepository: ISaleItemRepository,
   ) {}
 
-  async execute(saleId: string): Promise<UpdateResult> {
+  async execute(saleId: string): Promise<Sale> {
     const sale = await this.saleRepository.findById(saleId)
     if (!sale) throw new SaleNotFoundError()
     if (sale.isCancelled) throw new SaleHasAlreadyBeenCanceled()
