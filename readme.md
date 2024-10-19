@@ -87,6 +87,14 @@ Creates a new item with the given details.
 
 **Request Body:**
 
+```json
+{
+  "stock": 20,
+  "price": 120.0,
+  "slug": "item-slug"
+}
+```
+
 - **stock**: `number` (New stock quantity)
 - **price**: `number` (New price)
 - **slug**: `string` (New item slug)
@@ -129,6 +137,17 @@ Deletes the item with the given ID.
 
 **Request Body:**
 
+```json
+{
+  "customerName": "John Doe",
+  "branch": "NYC Branch",
+  "items": [
+    { "itemSlug": "item-1", "quantity": 2 },
+    { "itemSlug": "item-2", "quantity": 3 }
+  ]
+}
+```
+
 - **customerName**: `string` (Name of the customer)
 - **branch**: `string` (Branch where the sale is made)
 - **items**:
@@ -154,6 +173,12 @@ Creates a new sale with the specified customer, branch, and items.
 `POST /sales/cancel`
 
 **Request Body:**
+
+```json
+{
+  "saleId": "sale-id"
+}
+```
 
 - **saleId**: `string` (ID of the sale to cancel)
 
@@ -183,6 +208,16 @@ Cancels an existing sale using the provided sale ID.
     - **quantity**: `number` (New quantity of the item)
 
 **Response:**
+
+```json
+{
+  "saleId": "sale-id",
+  "saleItems": [
+    { "itemSlug": "item-1", "quantity": 2 },
+    { "itemSlug": "item-2", "quantity": 1 }
+  ]
+}
+```
 
 - **200 OK:**
   - Sale updated successfully
