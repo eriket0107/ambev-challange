@@ -4,7 +4,7 @@ import { SaleItem } from '@/database/entities/SaleItem'
 
 export interface ISaleItemRepository {
   create(saleItem: SaleItem): Promise<SaleItem>
-
+  findBySaleId(saleId: string): Promise<SaleItem[]>
   findById(id: string): Promise<SaleItem | null>
   update({
     id,
