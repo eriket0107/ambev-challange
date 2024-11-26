@@ -39,15 +39,19 @@ export const saleRoutes = async (app: FastifyInstance) => {
     },
     cancelSale,
   )
-  app.put('/sale-update', {
-    schema: {
-      description: 'Atualiza uma venda',
-      tags: ['Sale'],
-      body: {
-        type: 'object',
-        required: ['saleId'],
-        properties: { saleId: { type: 'string' } },
+  app.put(
+    '/sale-update',
+    {
+      schema: {
+        description: 'Atualiza uma venda',
+        tags: ['Sale'],
+        body: {
+          type: 'object',
+          required: ['saleId'],
+          properties: { saleId: { type: 'string' } },
+        },
       },
     },
-  } , updateSale)
+    updateSale,
+  )
 }
