@@ -1,6 +1,8 @@
 import 'reflect-metadata'
 
 import cors from '@fastify/cors'
+import fastifySwagger from '@fastify/swagger'
+import fastifySwaggerUI from '@fastify/swagger-ui'
 import fastify from 'fastify'
 import { ZodError } from 'zod'
 
@@ -14,6 +16,23 @@ app.register(cors, {
   credentials: true,
   origin: true,
 })
+
+app.register(fastifySwagger, {
+  openapi: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Fastify API',
+      description: 'API de vendas de produtos',
+      version: '1.0.0',
+    },
+  },
+})
+
+app
+  .register(fastifySwaggerUI, {
+    routePrefix: '/docs',
+  })
+  .withTypeProvider()
 
 routes()
 
